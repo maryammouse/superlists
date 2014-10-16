@@ -1,4 +1,4 @@
-from django.conf.urls import patterns, include, url
+from django.conf.urls import patterns, url
 #from django.contrib import admin
 
 urlpatterns = patterns('',
@@ -7,4 +7,5 @@ urlpatterns = patterns('',
     url(r'^lists/the-only-list-in-the-world/$', 'lists.views.view_list',
                        name = 'view_list'
         ),
+    url(r'^lists/new$', 'lists.views.new_list', name='new_list'),
     )
