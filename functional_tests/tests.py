@@ -68,6 +68,7 @@ class NewVisitorTest(LiveServerTestCase):
 
         self.check_for_row_in_list_table('1: Buy peacock feathers')
         self.check_for_row_in_list_table('2: Use peacock feathers to make a fly')
+        time.sleep(2)
 
         # Now a new user, Francis, comes along to the site.
 
@@ -89,6 +90,7 @@ class NewVisitorTest(LiveServerTestCase):
 
         inputbox = self.browser.find_element_by_id('id_new_item')
         inputbox.send_keys('Buy milk')
+        time.sleep(1)
         inputbox.send_keys(Keys.ENTER)
 
         # Francis gets his own unique url
@@ -98,7 +100,8 @@ class NewVisitorTest(LiveServerTestCase):
 
         # Again, there is no trace of Edith's list
 
-        page_text = self.browser.find_elements_by_tag_name('body').text
+        page_text = self.browser.find_element_by_tag_name('body').text
+        time.sleep(2)
         self.assertNotIn('Buy peacock feathers', page_text)
         self.assertIn('Buy milk', page_text)
 
