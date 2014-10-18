@@ -1,9 +1,10 @@
-from django.test import LiveServerTestCase
+#from django.test import LiveServerTestCase
+from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
-import time
+#import time
 
-class NewVisitorTest(LiveServerTestCase):
+class NewVisitorTest(StaticLiveServerTestCase):
     def setUp(self):
         self.browser = webdriver.Firefox()
         self.browser.implicitly_wait(3)
@@ -41,7 +42,7 @@ class NewVisitorTest(LiveServerTestCase):
         # is tying fly-fishing lures)
 
         inputbox.send_keys('Buy peacock feathers')
-        time.sleep(1)
+        #time.sleep(1)
 
 
         # When she hits enter, she is taken to a new URL,
@@ -52,7 +53,7 @@ class NewVisitorTest(LiveServerTestCase):
         edith_list_url = self.browser.current_url
         self.assertRegex(edith_list_url, '/lists/.+')
 
-        time.sleep(1)
+        #time.sleep(1)
 
         self.check_for_row_in_list_table('1: Buy peacock feathers')
 
@@ -68,7 +69,7 @@ class NewVisitorTest(LiveServerTestCase):
 
         self.check_for_row_in_list_table('1: Buy peacock feathers')
         self.check_for_row_in_list_table('2: Use peacock feathers to make a fly')
-        time.sleep(2)
+        #time.sleep(2)
 
         # Now a new user, Francis, comes along to the site.
 
@@ -90,7 +91,7 @@ class NewVisitorTest(LiveServerTestCase):
 
         inputbox = self.browser.find_element_by_id('id_new_item')
         inputbox.send_keys('Buy milk')
-        time.sleep(1)
+        #time.sleep(1)
         inputbox.send_keys(Keys.ENTER)
 
         # Francis gets his own unique url
@@ -101,13 +102,12 @@ class NewVisitorTest(LiveServerTestCase):
         # Again, there is no trace of Edith's list
 
         page_text = self.browser.find_element_by_tag_name('body').text
-        time.sleep(2)
+        #time.sleep(2)
         self.assertNotIn('Buy peacock feathers', page_text)
         self.assertIn('Buy milk', page_text)
 
     def test_layout_and_styling(self):
-
-        # Edith goes to the homepage
+        # Edith goes to the home page
         self.browser.get(self.live_server_url)
         self.browser.set_window_size(1024, 768)
 
@@ -115,20 +115,19 @@ class NewVisitorTest(LiveServerTestCase):
         inputbox = self.browser.find_element_by_id('id_new_item')
         self.assertAlmostEqual(
             inputbox.location['x'] + inputbox.size['width'] / 2,
-        512,
-        delta = 5
+            512,
+            delta=5
         )
 
-        # Edith makes a new list and sees the box there
-        # is also nicely centered.
+        # She starts a new list and sees the input is nicely
+        # centered there too
 
         inputbox.send_keys('testing\n')
         inputbox = self.browser.find_element_by_id('id_new_item')
         self.assertAlmostEqual(
-        inputbox.location['x'] + inputbox.size['width'] / 2,
-        512,
-        delta=5
+            inputbox.location['x'] + inputbox.size['width'] / 2,
+            512,
+            delta=5
         )
-
 
 
