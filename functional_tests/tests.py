@@ -113,35 +113,18 @@ class NewVisitorTest(StaticLiveServerTestCase):
 
         # She notices the input box is nicely centered
         inputbox = self.browser.find_element_by_id('id_new_item')
-        #centered_box = self.browser.find_element_by_id('centered_box')
         self.assertAlmostEqual(
             inputbox.location['x'] + inputbox.size['width'] / 2,
             512,
             delta=5
         )
 
-        #box_loc = centered_box.location['x']
-        #box_loc_double = box_loc * 2
-        #self.assertEqual(box_loc * 3, 540)
-        #self.assertEqual(centered_box.size['width'], 5)
-
-        # lets try and make a better math test to see if our box is centered,
-        # seeing as it honestly looks like this poor test cannot math.
-        # 270 * 3 it can do, but
-        # 270 * 2 != 361!!!
-
-
-        #self.assertAlmostEqual(centered_box.location['x'],
-                               #(1024 - centered_box.location['x'] - centered_box.size['width']),
-                               #delta=10)
-
-
 
         # She starts a new list and sees the input is nicely
         # centered there too
 
         inputbox.send_keys('testing\n')
-        #centered_box = self.browser.find_element_by_id('centered_box')
+        inputbox = self.browser.find_element_by_id('id_new_item')
         self.assertAlmostEqual(
             inputbox.location['x'] + inputbox.size['width'] / 2,
             512,
